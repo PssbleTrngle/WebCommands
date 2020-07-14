@@ -1,15 +1,7 @@
 <template>
   <div id="console">
     <Chat :messages="messages" />
-    <form @submit.prevent="execute">
-      <input
-        type="text"
-        placeholder="enter command.."
-        v-model="value"
-        @input="check"
-        @keydown="cycle"
-      />
-    </form>
+    <Input />
   </div>
 </template>
 
@@ -17,65 +9,16 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import _ from "lodash";
 import Chat, { Message } from "./Chat.vue";
+import Input from "./Input.vue";
 import { EventHub } from "../App.vue";
 
 @Component({
-  components: { Chat }
+  components: { Chat, Input }
 })
 export default class Console extends Vue {
-  value = "";
-  history: string[] = ["First", "Second", "Last"];
-  position = 0;
+  
+  messages: Message[] = []
 
-  messages: Message[] = new Array(100)
-    .fill([
-      {
-        timestamp: new Date().getTime(),
-        text: "Test"
-      },
-      {
-        timestamp: new Date().getTime() - 200,
-        text: "Test 2"
-      }
-    ])
-    .flat();
-
-  private check = _.debounce((e: any) => {
-    const input = e.target?.value;
-    // Send to brigardier
-  }, 500);
-
-  private cycle(event: KeyboardEvent) {
-    const { keyCode } = event;
-
-    switch (keyCode) {
-      case 38:
-        this.position++;
-        break;
-
-      case 40:
-        this.position--;
-        break;
-    }
-
-    if ([38, 40].includes(keyCode)) {
-      this.position = Math.max(0, Math.min(this.history.length, this.position));
-      this.value = this.history[this.history.length - this.position] ?? "";
-      event.preventDefault();
-    }
-  }
-
-  scrollDown() {
-    EventHub.$emit("scroll");
-  }
-
-  execute() {
-    this.history.push(this.value);
-    this.messages.push({ text: this.value, timestamp: new Date().getTime() });
-    this.value = "";
-    this.position = 0;
-    this.scrollDown();
-  }
 }
 </script>
 
