@@ -15,3 +15,10 @@ out/
 
 run/
 minecraft/
+
+# web
+
+node_modules/
+**/.env
+**/package-lock.json
+dist/
