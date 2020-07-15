@@ -9,8 +9,6 @@ import { Component, Vue } from "vue-property-decorator";
 import Console from "./components/Console.vue";
 import "reset-css";
 
-export const EventHub = new Vue();
-
 @Component({
   components: { Console }
 })

@@ -11,11 +11,12 @@
 import { Component, Prop, Vue } from "vue-property-decorator";
 import _ from "lodash";
 import moment from "moment";
-import { EventHub } from "../App.vue";
+import { EventHub } from "../main";
 
 export interface Message {
   text: string;
   timestamp: number;
+  sender?: string;
 }
 
 @Component({
@@ -40,38 +41,38 @@ export default class Chat extends Vue {
 }
 </script>
 
-<style scoped>
+<style lang='scss' scoped>
 #chat {
   padding: 5px 20px;
   padding-bottom: 20px;
   overflow-y: scroll;
   overflow-x: hidden;
-}
 
-#chat::-webkit-scrollbar {
-  width: 10px;
-}
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
 
-#chat::-webkit-scrollbar-thumb {
-  background: #0002;
-  border-radius: 1000px;
-}
+  &::-webkit-scrollbar-thumb {
+    background: #0002;
+    border-radius: 1000px;
+  }
 
-#chat::-webkit-scrollbar-track {
-  background: #0002;
-}
+  &::-webkit-scrollbar-track {
+    background: #0002;
+  }
 
-p {
-  padding: 2px 0;
-  transition: background 0.1s linear;
-}
+  p {
+    padding: 2px 0;
+    transition: background 0.1s linear;
 
-p:hover {
-  background-color: #fff1;
-}
+    span:first-child {
+      margin-right: 10px;
+      opacity: 0.5;
+    }
 
-span:first-child {
-  margin-right: 10px;
-  opacity: 0.5;
+    &:hover {
+      background-color: #fff1;
+    }
+  }
 }
 </style>

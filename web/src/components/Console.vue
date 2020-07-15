@@ -10,10 +10,15 @@ import { Component, Prop, Vue } from "vue-property-decorator";
 import _ from "lodash";
 import Chat, { Message } from "./Chat.vue";
 import Input from "./Input.vue";
-import { EventHub } from "../App.vue";
+import { EventHub } from "../main";
 
 @Component({
-  components: { Chat, Input }
+  components: { Chat, Input },
+  created: function (this: Console) {
+    EventHub.$on('message', (msg: Message) => {
+      this.messages.push({ ...msg, timestamp: new Date().getTime() })
+    })
+  }
 })
 export default class Console extends Vue {
   
@@ -39,23 +44,5 @@ export default class Console extends Vue {
 
 form {
   align-self: flex-end;
-}
-
-input {
-  width: calc(100% - 40px);
-  background: transparent;
-  color: #eee;
-  border: none;
-  font-size: 1rem;
-  padding: 10px 20px;
-  box-shadow: 0 -10px 10px 0 #0002;
-}
-
-input::placeholder {
-  color: #eee8;
-}
-
-input:focus {
-  outline: none;
 }
 </style>
