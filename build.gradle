@@ -19,6 +19,7 @@ minecraft {
 repositories {
     maven { url = "http://maven.fabricmc.net/" }
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -30,6 +31,9 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
     modImplementation "net.fabricmc:fabric-language-kotlin:${project.fabric_kotlin_version}"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
+    compile "org.java-websocket:Java-WebSocket:1.5.1"
 
     modImplementation ("me.shedaniel.cloth.api:cloth-api:${project.cloth_api_version}") {
         exclude(group: "net.fabricmc.fabric-api")
