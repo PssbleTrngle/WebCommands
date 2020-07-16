@@ -6,16 +6,12 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import net.minecraft.entity.player.PlayerEntity
 import net.minecraft.server.MinecraftServer
-import net.minecraft.server.command.CommandOutput
-import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.text.Text
 import org.java_websocket.WebSocket
 import org.java_websocket.handshake.ClientHandshake
-import java.net.URI
 import org.java_websocket.server.WebSocketServer
 import java.lang.Exception
 import java.net.InetSocketAddress
-import java.util.*
 import java.util.concurrent.CompletableFuture
 
 class SocketServer(private val server: MinecraftServer) : WebSocketServer(InetSocketAddress(9000)) {
@@ -89,11 +85,15 @@ class SocketServer(private val server: MinecraftServer) : WebSocketServer(InetSo
     fun sendMessage(text: Text, sender: PlayerEntity?) {
         val message = Json.stringify(
             ServerMessage.serializer(), ServerMessage(
-                text.asString(),
+                parse(text),
                 sender?.displayName?.asString()
             )
         )
         broadcast(Json.stringify(Message.serializer(), Message("message", data = message)))
+    }
+
+    fun parse(text: Text): String {
+        return text.string
     }
 
 }

@@ -10,7 +10,7 @@ class Connection {
     private socket!: WebSocket
 
     constructor(port: number) {
-        this.socket = new WebSocket(`ws://localhost:${port}`)
+        this.socket = new WebSocket(`ws://somethingcatchy.net:${port}`)
         this.socket.onopen = () => console.log('Connection opened')
         this.socket.onmessage = m => this.handleMessage(JSON.parse(m.data))
     }
@@ -29,4 +29,4 @@ class Connection {
 
 }
 
-export default new Connection(9000)
+export default new Connection(7011)

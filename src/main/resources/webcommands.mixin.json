@@ -2,7 +2,7 @@
   "required": true,
   "compatibilityLevel": "JAVA_8",
   "package": "com.possible_triangle.webcommands.mixin",
-  "mixins": [
+  "server": [
     "MinecraftServerMixin"
   ],
   "injectors": {

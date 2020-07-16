@@ -15,7 +15,10 @@
   "environment": "*",
   "entrypoints": {
     "server": [
-      "com.possible_triangle.webcommands.WebCommands"
+      {
+        "value": "com.possible_triangle.webcommands.WebCommands",
+        "adaptar": "kotlin"
+      }
     ]
   },
   "mixins": [
