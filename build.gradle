@@ -22,6 +22,10 @@ repositories {
     mavenCentral()
 }
 
+configurations {
+    includeJar
+}
+
 dependencies {
 
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -34,8 +38,8 @@ dependencies {
 
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-runtime:0.20.0"
     compile "org.java-websocket:Java-WebSocket:1.5.1"
+    includeJar "org.java-websocket:Java-WebSocket:1.5.1"
 
-    //annotationProcessor("net.fabricmc:sponge-mixin:0.7.11.13")
     annotationProcessor("net.fabricmc:fabric-loom:${project.loom_version}")
 
 }
@@ -70,6 +74,10 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 
 jar {
     from "LICENSE"
+
+    from {
+        configurations.includeJar.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 compileKotlin.kotlinOptions.jvmTarget = "1.8"

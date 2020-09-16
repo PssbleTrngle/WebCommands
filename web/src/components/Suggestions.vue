@@ -32,17 +32,9 @@ interface Check {
 @Component({
   created: function(this: Suggestions) {
     EventHub.$on("check", (check: Check) => {
+      console.log(check)
       this.suggestions = check.suggestions ?? [];
       this.selected = -1;
-    });
-
-    EventHub.$emit("check", {
-      suggestions: [
-        { start: 9, end: 11, text: "creative" },
-        { start: 9, end: 11, text: "spectator" },
-        { start: 9, end: 11, text: "survival" },
-        { start: 9, end: 11, text: "adventure" }
-      ]
     });
   },
   computed: {

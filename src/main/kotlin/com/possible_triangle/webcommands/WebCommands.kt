@@ -4,9 +4,10 @@ import net.fabricmc.api.DedicatedServerModInitializer
 
 @Suppress("unused")
 class WebCommands : DedicatedServerModInitializer  {
+
     override fun onInitializeServer() {
-
-
+        SavedData.load()
     }
+
 }
 
